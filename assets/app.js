@@ -76,7 +76,7 @@ function updateSyncStatus() {
 function renderCurrentTab() {
   const active = document.querySelector('.tab--active');
   if (!active) return;
-  const tabId = active.dataset.tab;
+  const tabId = active.id.replace('tab-', '');
   switch (tabId) {
     case 'dashboard':
       active.innerHTML = `<h2>${tabId}</h2><p>v1.0 – Скоро...</p>`;
