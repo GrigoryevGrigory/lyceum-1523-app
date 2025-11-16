@@ -1,4 +1,10 @@
 // Main app.js
+import { renderTimeline } from './ui-timeline.js';
+import { renderContacts } from './ui-contacts.js';
+  events: [],
+  contacts: [],
+          fetch('./data/events.json'),
+      fetch('./data/contacts.json')
 import { renderHomeworks } from './ui-homeworks.js';
 import { renderMarks } from './ui-marks.js';
 
@@ -92,3 +98,10 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 export { state, loadData };
+
+    case 'timeline':
+      if (state.events) renderTimeline(state.events);
+      break;
+    case 'contacts':
+      if (state.contacts) renderContacts(state.contacts);
+      break;
