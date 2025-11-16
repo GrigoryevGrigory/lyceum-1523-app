@@ -1,3 +1,4 @@
+// Updated: 2025-11-16 15:00 MSK
 function handleTabClick(tabId) {
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('nav-btn--active'));
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('tab--active'));
