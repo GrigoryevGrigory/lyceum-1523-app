@@ -1,0 +1,109 @@
+{
+  "syncedat": "2025-11-16T11:00:00Z",
+  "events": [
+    {
+      "id": "evt001",
+      "title": "Подача заявления на обучение",
+      "date": "2025-12-01",
+      "type": "deadline",
+      "description": "Подать заявление в лицей",
+      "status": "upcoming"
+    },
+    {
+      "id": "evt002",
+      "title": "Предварительные испытания",
+      "date": "2025-12-15",
+      "type": "exam",
+      "description": "Проведение предварительных испытаний",
+      "status": "upcoming"
+    },
+    {
+      "id": "evt003",
+      "title": "Зимние каникулы",
+      "date": "2026-01-01",
+      "type": "holiday",
+      "description": "Начало зимних каникул",
+      "status": "upcoming"
+    },
+    {
+      "id": "evt004",
+      "title": "Основные испытания",
+      "date": "2026-01-15",
+      "type": "exam",
+      "description": "Основные вступительные испытания",
+      "status": "upcoming"
+    },
+    {
+      "id": "evt005",
+      "title": "День открытых дверей",
+      "date": "2026-01-22",
+      "type": "event",
+      "description": "Посещение лицея и знакомство с программой",
+      "status": "upcoming"
+    },
+    {
+      "id": "evt006",
+      "title": "Объявление результатов",
+      "date": "2026-01-25",
+      "type": "deadline",
+      "description": "Публикация результатов испытаний",
+      "status": "upcoming"
+    },
+    {
+      "id": "evt007",
+      "title": "Подача оригиналов документов",
+      "date": "2026-02-05",
+      "type": "deadline",
+      "description": "Последний день подачи оригиналов",
+      "status": "upcoming"
+    },
+    {
+      "id": "evt008",
+      "title": "Начало обучения на курсах",
+      "date": "2026-02-10",
+      "type": "event",
+      "description": "Первый день занятий на подготовительных курсах",
+      "status": "upcoming"
+    },
+    {
+      "id": "evt009",
+      "title": "Родительское собрание",
+      "date": "2026-02-20",
+      "type": "event",
+      "description": "Общее собрание для родителей",
+      "status": "upcoming"
+    },
+    {
+      "id": "evt010",
+      "title": "Весенние каникулы",
+      "date": "2026-03-26",
+      "type": "holiday",
+      "description": "Начало весенних каникул",
+      "status": "upcoming"
+    },
+    {
+      "id": "evt011",
+      "title": "Дополнительный набор",
+      "date": "2026-04-10",
+      "type": "deadline",
+      "description": "Подача заявлений в дополнительном наборе",
+      "status": "upcoming"
+    },
+    {
+      "id": "evt012",
+      "title": "Зачисление в лицей",
+      "date": "2026-04-20",
+      "type": "milestone",
+      "description": "Официальное зачисление в список учеников",
+      "status": "upcoming"
+    },
+    {
+      "id": "evt013",
+      "title": "Начало учебного года",
+      "date": "2026-09-01",
+      "type": "milestone",
+      "description": "Первый день учебного года в лицее",
+      "status": "upcoming"
+    }
+  ]
+}
