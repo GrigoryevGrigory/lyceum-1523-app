@@ -1,0 +1,87 @@
+{
+  "syncedat": "2025-11-16T11:00:00Z",
+  "contacts": [
+    {
+      "id": "cnt001",
+      "name": "Приёмная комиссия",
+      "role": "Приём документов",
+      "phone": "+7 (499) 614-50-94",
+      "email": "admissions@l1523.mephi.ru",
+      "room": "Кабинеты 101, 102, 103",
+      "hours": "Пн-Пт: 9:00-17:00",
+      "type": "admission"
+    },
+    {
+      "id": "cnt002",
+      "name": "Волкова Мария Ивановна",
+      "role": "Заместитель директора",
+      "phone": "+7 (499) 614-50-94 доб. 102",
+      "email": "m.volkova@l1523.mephi.ru",
+      "room": null,
+      "hours": "Вт, Чт: 14:00-17:00",
+      "type": "administration"
+    },
+    {
+      "id": "cnt003",
+      "name": "Смирнов Пётр Александрович",
+      "role": "Завуч",
+      "phone": "+7 (499) 614-50-94 доб. 103",
+      "email": "p.smirnov@l1523.mephi.ru",
+      "room": null,
+      "hours": "Ср, Пт: 15:00-18:00",
+      "type": "administration"
+    },
+    {
+      "id": "cnt004",
+      "name": "Консультационный центр",
+      "role": "Помощь по предметам",
+      "phone": null,
+      "email": null,
+      "room": "Кабинет 5",
+      "hours": "Ежедневно",
+      "address": "ул. Каширское ш., 21",
+      "type": "support"
+    },
+    {
+      "id": "cnt005",
+      "name": "Главный сайт",
+      "role": "Официальная информация",
+      "phone": "+7 (499) 614-50-94",
+      "email": null,
+      "url": "https://l1523.mephi.ru",
+      "type": "online"
+    },
+    {
+      "id": "cnt006",
+      "name": "Социальные сети",
+      "role": "Новости и объявления",
+      "phone": null,
+      "email": null,
+      "vk": "https://vk.com/l1523mephi",
+      "telegram": "https://t.me/l1523official",
+      "instagram": "@lyceum1523",
+      "type": "social"
+    },
+    {
+      "id": "cnt007",
+      "name": "Подготовительные курсы",
+      "role": "Запись на курсы",
+      "phone": "+7 (499) 123-45-67",
+      "email": "talent@mephi.ru",
+      "url": "https://l1523.mephi.ru/admission",
+      "type": "courses"
+    },
+    {
+      "id": "cnt008",
+      "name": "Библиотека",
+      "role": "Учебные материалы",
+      "phone": null,
+      "email": null,
+      "room": null,
+      "address": "ул. Каширское ш., 21, корпус 3",
+      "hours": "Пн-Пт: 9:00-18:00",
+      "url": "https://library.l1523.mephi.ru",
+      "type": "library"
+    }
+  ]
+}
