@@ -1,0 +1,236 @@
+/* Reset & Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  line-height: 1.6;
+}
+
+/* Dark Theme */
+.app--dark {
+  background: #0d1117;
+  color: #c9d1d9;
+  min-height: 100vh;
+}
+
+/* Header */
+.app-header {
+  background: #161b22;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid #30363d;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.app-header__title h1 {
+  font-size: 1.5rem;
+  margin: 0.5rem 0;
+}
+
+.app-logo {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #58a6ff;
+}
+
+.app-header__status {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+/* Navigation */
+.app-nav {
+  background: #161b22;
+  padding: 1rem 2rem;
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  border-bottom: 1px solid #30363d;
+}
+
+.nav-btn {
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: 1px solid #30363d;
+  color: #c9d1d9;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.nav-btn:hover {
+  background: #21262d;
+  border-color: #58a6ff;
+}
+
+.nav-btn--active {
+  background: #1f6feb;
+  border-color: #1f6feb;
+  color: white;
+}
+
+/* Main Content */
+.app-main {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.tab {
+  display: none;
+}
+
+.tab--active {
+  display: block;
+}
+
+/* Buttons */
+.btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.btn--primary {
+  background: #238636;
+  color: white;
+}
+
+.btn--primary:hover {
+  background: #2ea043;
+}
+
+/* Sync Status */
+.sync-status {
+  font-size: 0.85rem;
+  color: #8b949e;
+}
+
+/* Modal */
+.modal-root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-root.hidden {
+  display: none;
+}
+
+/* Homework Cards */
+.hw-filters {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.chip {
+  padding: 0.4rem 0.8rem;
+  background: #21262d;
+  border: 1px solid #30363d;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.chip:hover {
+  background: #30363d;
+}
+
+.chip--active {
+  background: #1f6feb;
+  border-color: #1f6feb;
+  color: white;
+}
+
+.hw-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.homework-card {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.homework-card:hover {
+  border-color: #58a6ff;
+  transform: translateY(-2px);
+}
+
+.homework-card__header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.homework-card__subject {
+  font-weight: bold;
+  color: #58a6ff;
+}
+
+.homework-card__status {
+  font-size: 0.8rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  background: #21262d;
+}
+
+.homework-card__title {
+  font-size: 0.95rem;
+  margin: 0.5rem 0;
+}
+
+.homework-card__deadline {
+  font-size: 0.85rem;
+  color: #8b949e;
+}
+
+.hw-card--overdue {
+  border-color: #f85149;
+}
+
+.hw-card--completed {
+  opacity: 0.6;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .app-nav {
+    padding: 0.5rem 1rem;
+  }
+  
+  .app-main {
+    padding: 1rem;
+  }
+}
