@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Лицей 1523</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./assets/styles.css">
+</head>
+<body class="app app--dark">
+    <header class="app-header">
+        <div class="app-header__title">
+            <div>
+                <span class="app-logo">Лицей 1523</span>
+            </div>
+            <h1>Дашборд</h1>
+            <p>Домашние задания и оценки</p>
+        </div>
+        <div class="app-header__status">
+            <button id="btn-sync-now" class="btn btn--primary">Обновить с XCUR</button>
+            <div id="sync-status" class="sync-status">
+                <span id="sync-last">Загрузка...</span>
+            </div>
+        </div>
+    </header>
+    
+    <nav class="app-nav app-nav--desktop">
+        <button data-tab="dashboard" class="nav-btn nav-btn--active">Дашборд</button>
+        <button data-tab="timeline" class="nav-btn">Таймлайн</button>
+        <button data-tab="checklist" class="nav-btn">Чек-лист</button>
+        <button data-tab="progress" class="nav-btn">Прогресс</button>
+        <button data-tab="homeworks" class="nav-btn">Домашка</button>
+        <button data-tab="marks" class="nav-btn">Оценки</button>
+        <button data-tab="contacts" class="nav-btn">Контакты</button>
+        <button data-tab="settings" class="nav-btn">Настройки</button>
+    </nav>
+    
+    <main class="app-main">
+        <section id="tab-dashboard" class="tab tab--active"></section>
+        <section id="tab-timeline" class="tab"></section>
+        <section id="tab-checklist" class="tab"></section>
+        <section id="tab-progress" class="tab"></section>
+        <section id="tab-homeworks" class="tab"></section>
+        <section id="tab-marks" class="tab"></section>
+        <section id="tab-contacts" class="tab"></section>
+        <section id="tab-settings" class="tab"></section>
+    </main>
+    
+    <div id="modal-root" class="modal-root hidden"></div>
+    
+    <script src="./assets/app.js" type="module"></script>
+</body>
+</html>
