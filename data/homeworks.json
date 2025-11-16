@@ -1,5 +1,5 @@
 {
-  "syncedat": "2025-11-16T12:00:00Z",
+  "syncedat": "2025-11-16T11:00:00Z",
   "homeworks": [
     {
       "id": "hw001",
@@ -7,11 +7,11 @@
       "text": "Решить задачи 110-115 из учебника. Подготовиться к контрольной работе",
       "dateissued": "2025-11-15",
       "deadline": "2025-11-18",
-      "status": "notstarted",
+      "status": "inprogress",
       "grade": null,
       "teachercomment": null,
       "files": [],
-      "type": null
+      "type": "homework"
     },
     {
       "id": "hw002",
@@ -19,23 +19,47 @@
       "text": "Написать сочинение на тему 'Осень'",
       "dateissued": "2025-11-14",
       "deadline": "2025-11-20",
-      "status": "inprogress",
+      "status": "notstarted",
       "grade": null,
       "teachercomment": null,
       "files": [],
-      "type": null
+      "type": "essay"
     },
     {
       "id": "hw003",
-      "subject": "Английский язык",
-      "text": "Выучить слова unit 5, сделать упражнения 1-3",
+      "subject": "Физика",
+      "text": "Подготовить лабораторную работу по теме 'Электричество'",
       "dateissued": "2025-11-13",
+      "deadline": "2025-11-19",
+      "status": "notstarted",
+      "grade": null,
+      "teachercomment": null,
+      "files": [],
+      "type": "lab"
+    },
+    {
+      "id": "hw004",
+      "subject": "Информатика",
+      "text": "Написать программу для сортировки массива",
+      "dateissued": "2025-11-12",
+      "deadline": "2025-11-22",
+      "status": "notstarted",
+      "grade": null,
+      "teachercomment": null,
+      "files": [],
+      "type": "programming"
+    },
+    {
+      "id": "hw005",
+      "subject": "Английский язык",
+      "text": "Выучить слова unit 3, стр. 45-50. Подготовиться к диктанту",
+      "dateissued": "2025-11-11",
       "deadline": "2025-11-17",
       "status": "completed",
       "grade": 5,
       "teachercomment": "Отличная работа!",
       "files": [],
-      "type": null
+      "type": "homework"
     }
   ]
 }
