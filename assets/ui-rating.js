@@ -20,13 +20,11 @@ async function loadAdmissionStats() {
   return data || [];
 }
 
-async function lookupCaseNumber(caseNumber, year, targetClass, profile) {
+async function lookupCaseNumber(caseNumber, year) {
   const { data, error } = await supabase
     .from('rating_snapshot')
     .select('*')
     .eq('year', year)
-    .eq('target_class', targetClass)
-    .eq('profile', profile)
     .eq('case_number', caseNumber.trim())
     .maybeSingle();
   if (error) throw error;
@@ -63,15 +61,17 @@ function calcProbability(position, seats, totalInRating) {
 }
 
 function calcProbabilityByScore(score, stats) {
-  if (!score || !stats) return null;
-  const { passing_score, seats, applied, max_score } = stats;
+  if (score == null || !stats) return null;
+  const { passing_score, max_score } = stats;
+  if (!passing_score) return { pct: null, zone: 'yellow', label: 'Нет данных' };
   const gap = score - passing_score;
 
   if (gap >= 15) return { pct: 93, zone: 'green', label: 'Высокий' };
   if (gap >= 5)  return { pct: 80, zone: 'green', label: 'Хороший' };
   if (gap >= 0)  return { pct: 62, zone: 'yellow', label: 'Пограничный' };
-  if (gap >= -8) return { pct: 32, zone: 'yellow', label: 'Рискованный' };
-  return { pct: 10, zone: 'red', label: 'Низкий' };
+  if (gap >= -10) return { pct: 28, zone: 'yellow', label: 'Рискованный' };
+  if (gap >= -20) return { pct: 10, zone: 'red', label: 'Низкий' };
+  return { pct: 2, zone: 'red', label: 'Очень низкий' };
 }
 
 // ── main render ───────────────────────────────────────────────────────────────
@@ -125,25 +125,11 @@ export async function renderRating(appState) {
 
         <div class="rating-card">
           <h3 class="rating-card__title">Найти позицию в рейтинге</h3>
-          <p class="rating-card__hint">Введите номер личного дела из портала <a href="https://org.mephi.ru" target="_blank">org.mephi.ru</a>.</p>
+          <p class="rating-card__hint">Введите номер личного дела из портала <a href="https://org.mephi.ru" target="_blank">org.mephi.ru</a>. Класс и профиль определятся автоматически.</p>
 
-          <div class="form-row">
-            <div class="form-group">
-              <label>Класс поступления</label>
-              <select id="r-class">
-                ${classOptions.map(c => `<option value="${c}">${c} класс</option>`).join('')}
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Профиль</label>
-              <select id="r-profile">
-                ${profileOptions.map(p => `<option value="${p}">${profileLabels[p] || p}</option>`).join('')}
-              </select>
-            </div>
-          </div>
           <div class="form-group">
             <label>Номер личного дела</label>
-            <input type="text" id="r-case-number" placeholder="Например: 2033" class="case-input">
+            <input type="text" id="r-case-number" placeholder="Например: 2033" class="case-input" inputmode="numeric">
           </div>
           <button class="btn btn--primary" id="r-search-btn">Найти в рейтинге</button>
           <div id="r-case-result" class="rating-result hidden"></div>
@@ -245,10 +231,8 @@ export async function renderRating(appState) {
 
   // ── case number search ─────────────────────────────────────────────────────
   container.querySelector('#r-search-btn')?.addEventListener('click', async () => {
-    const caseNum   = container.querySelector('#r-case-number').value.trim();
-    const cls       = parseInt(container.querySelector('#r-class').value);
-    const prof      = container.querySelector('#r-profile').value;
-    const resultEl  = container.querySelector('#r-case-result');
+    const caseNum  = container.querySelector('#r-case-number').value.trim();
+    const resultEl = container.querySelector('#r-case-result');
 
     if (!caseNum) { resultEl.innerHTML = '<p class="rating-error">Введите номер личного дела</p>'; resultEl.classList.remove('hidden'); return; }
 
@@ -256,18 +240,19 @@ export async function renderRating(appState) {
     resultEl.classList.remove('hidden');
 
     try {
-      const entry = await lookupCaseNumber(caseNum, currentYear, cls, prof);
+      const entry = await lookupCaseNumber(caseNum, currentYear);
       if (!entry) {
         resultEl.innerHTML = `
           <div class="rating-not-found">
             <p>Номер <strong>${esc(caseNum)}</strong> не найден в рейтинге ${currentYear} года.</p>
-            <p class="text-muted">Возможно, рейтинговые списки ещё не опубликованы (публикуются после испытаний в июне). Попробуйте оценить шансы по баллу.</p>
+            <p class="text-muted">Сейчас доступны данные только по 8 классу ФИЗ-МАТ. Остальные профили будут добавлены после публикации на <a href="https://org.mephi.ru/pupil-rating" target="_blank">org.mephi.ru</a>.</p>
           </div>
         `;
         return;
       }
 
-      // Load full list for this profile to get total count
+      const cls  = entry.target_class;
+      const prof = entry.profile;
       const fullList = await loadRatingForProfile(currentYear, cls, prof);
       const stat = stats.find(s => s.year === currentYear && s.target_class === cls && s.profile === prof)
                 || stats.find(s => s.year === lastYear    && s.target_class === cls && s.profile === prof);
@@ -293,22 +278,11 @@ export async function renderRating(appState) {
 
     const maxScore = stat?.max_score || stat2026?.max_score || 200;
     const minThreshold = maxScore === 300 ? 260 : 160;
-
-    if (score < minThreshold) {
-      resultEl.innerHTML = `
-        <div class="result-block">
-          <div class="advice advice--red">
-            ❗ Балл ${score} ниже минимального порога допуска (${minThreshold}/${maxScore}).
-            Для участия в конкурсе необходимо набрать не менее ${minThreshold} баллов.
-          </div>
-        </div>`;
-      resultEl.classList.remove('hidden');
-      return;
-    }
+    const belowThreshold = score < minThreshold;
 
     const prob = stat ? calcProbabilityByScore(score, stat) : { pct: null, zone: 'yellow', label: 'Нет данных' };
     const allYearStats = stats.filter(s => s.target_class === cls && s.profile === prof && s.passing_score != null);
-    resultEl.innerHTML = renderScoreResult(score, stat || stat2026, prob, profileLabels[prof] || prof, allYearStats, stat2026);
+    resultEl.innerHTML = renderScoreResult(score, stat || stat2026, prob, profileLabels[prof] || prof, allYearStats, stat2026, belowThreshold, minThreshold);
     resultEl.classList.remove('hidden');
   });
 
@@ -423,7 +397,7 @@ function renderCaseResult(entry, seats, total, prob, profileLabel) {
   `;
 }
 
-function renderScoreResult(score, stat, prob, profileLabel, allYearStats, stat2026) {
+function renderScoreResult(score, stat, prob, profileLabel, allYearStats, stat2026, belowThreshold, minThreshold) {
   const seats2026 = stat2026?.seats ?? stat?.seats;
   const hasPassing = stat?.passing_score != null;
   const gap = hasPassing ? score - stat.passing_score : null;
@@ -434,6 +408,10 @@ function renderScoreResult(score, stat, prob, profileLabel, allYearStats, stat20
       <div class="result-header">
         <span class="result-label">${esc(profileLabel)}, ${stat.target_class} класс</span>
       </div>
+
+      ${belowThreshold ? `<div class="advice advice--red" style="margin-bottom:.75rem">
+        ❗ Балл <strong>${score}</strong> ниже минимального порога допуска (<strong>${minThreshold}</strong>). Для участия в конкурсе необходимо набрать не менее ${minThreshold} баллов суммарно.
+      </div>` : ''}
 
       ${stat2026 ? `<div class="rating-notice" style="margin-bottom:.75rem">
         <span class="rating-notice__icon">📋</span>
