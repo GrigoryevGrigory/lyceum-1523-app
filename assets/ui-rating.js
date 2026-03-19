@@ -93,6 +93,7 @@ export async function renderRating(appState) {
   const currentYear = 2026;
   const lastYear = 2025;
   const lastStats = stats.filter(s => s.year === lastYear);
+  const currentStats = stats.filter(s => s.year === currentYear);
 
   // Profile options from stats
   const profileOptions = [...new Set(lastStats.map(s => s.profile))];
@@ -169,11 +170,12 @@ export async function renderRating(appState) {
             </div>
           </div>
           <div class="form-group">
-            <label>Суммарный балл <span class="text-muted">(из 200)</span></label>
+            <label>Суммарный балл <span id="s-score-label" class="text-muted">(из 200)</span></label>
             <div style="display:flex;align-items:center;gap:1rem">
-              <input type="range" id="s-score-range" min="60" max="200" value="140" style="flex:1">
-              <input type="number" id="s-score-num" min="60" max="200" value="140" style="width:70px" class="score-num-input">
+              <input type="range" id="s-score-range" min="60" max="200" value="170" style="flex:1">
+              <input type="number" id="s-score-num" min="60" max="200" value="170" style="width:70px" class="score-num-input">
             </div>
+            <p id="s-score-hint" class="rating-card__hint" style="margin-top:.5rem;margin-bottom:0"></p>
           </div>
           <button class="btn btn--primary" id="s-calc-btn">Рассчитать шансы</button>
           <div id="s-score-result" class="rating-result hidden"></div>
@@ -209,9 +211,35 @@ export async function renderRating(appState) {
     });
   });
 
-  // ── score range sync ───────────────────────────────────────────────────────
-  const rangeEl = container.querySelector('#s-score-range');
-  const numEl   = container.querySelector('#s-score-num');
+  // ── score range sync + dynamic max ────────────────────────────────────────
+  const rangeEl   = container.querySelector('#s-score-range');
+  const numEl     = container.querySelector('#s-score-num');
+  const labelEl   = container.querySelector('#s-score-label');
+  const hintEl    = container.querySelector('#s-score-hint');
+
+  function updateScaleForProfile() {
+    const cls  = parseInt(container.querySelector('#s-class').value);
+    const prof = container.querySelector('#s-profile').value;
+    const st   = stats.find(s => s.year === lastYear && s.target_class === cls && s.profile === prof)
+              || stats.find(s => s.target_class === cls && s.profile === prof);
+    const maxScore = st?.max_score || 200;
+    const minScore = maxScore === 300 ? 100 : 60;
+    rangeEl.max = maxScore;
+    rangeEl.min = minScore;
+    numEl.max   = maxScore;
+    numEl.min   = minScore;
+    if (parseInt(numEl.value) > maxScore) { numEl.value = maxScore; rangeEl.value = maxScore; }
+    if (parseInt(numEl.value) < minScore) { numEl.value = minScore; rangeEl.value = minScore; }
+    labelEl.textContent = `(из ${maxScore})`;
+    hintEl.textContent = maxScore === 300
+      ? 'IT-класс: Математика (100) + Информатика теория (100) + Информатика практика (100). Минимальный порог: 260.'
+      : 'Математика (100) + Физика (100). Минимальный порог: 160.';
+  }
+
+  container.querySelector('#s-class')?.addEventListener('change', updateScaleForProfile);
+  container.querySelector('#s-profile')?.addEventListener('change', updateScaleForProfile);
+  updateScaleForProfile();
+
   rangeEl?.addEventListener('input', () => { numEl.value = rangeEl.value; });
   numEl?.addEventListener('input',   () => { rangeEl.value = numEl.value; });
 
@@ -259,11 +287,28 @@ export async function renderRating(appState) {
     const prof     = container.querySelector('#s-profile').value;
     const resultEl = container.querySelector('#s-score-result');
 
-    const stat = stats.find(s => s.year === lastYear && s.target_class === cls && s.profile === prof);
-    if (!stat) { resultEl.innerHTML = '<p class="text-muted">Нет данных для этого профиля</p>'; resultEl.classList.remove('hidden'); return; }
+    const stat2026 = currentStats.find(s => s.target_class === cls && s.profile === prof);
+    const stat     = stats.find(s => s.year === lastYear && s.target_class === cls && s.profile === prof);
+    if (!stat && !stat2026) { resultEl.innerHTML = '<p class="text-muted">Нет данных для этого профиля</p>'; resultEl.classList.remove('hidden'); return; }
 
-    const prob = calcProbabilityByScore(score, stat);
-    resultEl.innerHTML = renderScoreResult(score, stat, prob, profileLabels[prof] || prof, stats.filter(s => s.target_class === cls && s.profile === prof));
+    const maxScore = stat?.max_score || stat2026?.max_score || 200;
+    const minThreshold = maxScore === 300 ? 260 : 160;
+
+    if (score < minThreshold) {
+      resultEl.innerHTML = `
+        <div class="result-block">
+          <div class="advice advice--red">
+            ❗ Балл ${score} ниже минимального порога допуска (${minThreshold}/${maxScore}).
+            Для участия в конкурсе необходимо набрать не менее ${minThreshold} баллов.
+          </div>
+        </div>`;
+      resultEl.classList.remove('hidden');
+      return;
+    }
+
+    const prob = stat ? calcProbabilityByScore(score, stat) : { pct: null, zone: 'yellow', label: 'Нет данных' };
+    const allYearStats = stats.filter(s => s.target_class === cls && s.profile === prof && s.passing_score != null);
+    resultEl.innerHTML = renderScoreResult(score, stat || stat2026, prob, profileLabels[prof] || prof, allYearStats, stat2026);
     resultEl.classList.remove('hidden');
   });
 
@@ -364,9 +409,11 @@ function renderCaseResult(entry, seats, total, prob, profileLabel) {
   `;
 }
 
-function renderScoreResult(score, stat, prob, profileLabel, allYearStats) {
-  const gap = score - stat.passing_score;
-  const gapSign = gap >= 0 ? '+' : '';
+function renderScoreResult(score, stat, prob, profileLabel, allYearStats, stat2026) {
+  const seats2026 = stat2026?.seats ?? stat?.seats;
+  const hasPassing = stat?.passing_score != null;
+  const gap = hasPassing ? score - stat.passing_score : null;
+  const gapSign = gap !== null && gap >= 0 ? '+' : '';
 
   return `
     <div class="result-block">
@@ -374,36 +421,43 @@ function renderScoreResult(score, stat, prob, profileLabel, allYearStats) {
         <span class="result-label">${esc(profileLabel)}, ${stat.target_class} класс</span>
       </div>
 
+      ${stat2026 ? `<div class="rating-notice" style="margin-bottom:.75rem">
+        <span class="rating-notice__icon">📋</span>
+        <span>Проходной балл 2026 года станет известен после испытаний (июнь 2026). Сравнение идёт с данными ${stat?.year || 2025} года. <strong>Мест в 2026: ${seats2026}</strong></span>
+      </div>` : ''}
+
       <div class="result-stats">
         <div class="result-stat">
           <div class="result-stat__value">${score}</div>
           <div class="result-stat__label">Ваш балл</div>
         </div>
         <div class="result-stat">
-          <div class="result-stat__value">${stat.passing_score}</div>
-          <div class="result-stat__label">Проходной ${stat.year}</div>
+          <div class="result-stat__value">${hasPassing ? stat.passing_score : '?'}</div>
+          <div class="result-stat__label">Проходной ${stat?.year ?? '2025'}</div>
         </div>
         <div class="result-stat">
-          <div class="result-stat__value">${gapSign}${gap}</div>
+          <div class="result-stat__value">${hasPassing ? `${gapSign}${gap}` : '—'}</div>
           <div class="result-stat__label">Разница</div>
         </div>
         <div class="result-stat">
-          <div class="result-stat__value">${stat.seats}</div>
-          <div class="result-stat__label">Бюджетных мест</div>
+          <div class="result-stat__value">${seats2026 ?? stat?.seats ?? '—'}</div>
+          <div class="result-stat__label">Мест 2026</div>
         </div>
       </div>
 
-      <div class="prob-bar-wrap zone--${prob.zone}">
-        <div class="prob-bar">
-          <div class="prob-bar__fill" style="width:${prob.pct}%"></div>
+      ${hasPassing && prob.pct ? `
+        <div class="prob-bar-wrap zone--${prob.zone}">
+          <div class="prob-bar">
+            <div class="prob-bar__fill" style="width:${prob.pct}%"></div>
+          </div>
+          <div class="prob-label">
+            <strong>${prob.pct}%</strong> — ${prob.label || ''} шанс (по данным ${stat.year})
+          </div>
         </div>
-        <div class="prob-label">
-          <strong>${prob.pct}%</strong> — ${prob.label || ''} шанс
-        </div>
-      </div>
+      ` : `<p class="text-muted" style="margin:.5rem 0">Вероятность будет рассчитана после публикации проходных баллов 2026.</p>`}
 
       <div class="score-advice">
-        ${scoreAdvice(gap, stat)}
+        ${hasPassing ? scoreAdvice(gap, stat) : `<p class="advice advice--yellow">ℹ️ Ваш балл (${score}) выше минимального порога допуска. Точная оценка шансов — после публикации результатов испытаний.</p>`}
       </div>
 
       ${allYearStats.length > 1 ? `
