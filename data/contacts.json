@@ -1,87 +1,74 @@
 {
-  "syncedat": "2025-11-16T11:00:00Z",
+  "syncedat": "2026-03-19T00:00:00Z",
   "contacts": [
     {
       "id": "cnt001",
-      "name": "Приёмная комиссия",
-      "role": "Приём документов",
+      "name": "Приёмная комиссия Лицея 1523",
+      "role": "Вопросы поступления и приём документов",
       "phone": "+7 (499) 614-50-94",
-      "email": "admissions@l1523.mephi.ru",
-      "room": "Кабинеты 101, 102, 103",
-      "hours": "Пн-Пт: 9:00-17:00",
+      "phone2": "+7 (915) 074-16-81",
+      "email": "1523@mephi.ru",
+      "address": "Кленовый бульвар, 21, Москва",
+      "hours": "Пн–Пт: 9:00–17:00",
       "type": "admission"
     },
     {
       "id": "cnt002",
-      "name": "Волкова Мария Ивановна",
-      "role": "Заместитель директора",
-      "phone": "+7 (499) 614-50-94 доб. 102",
-      "email": "m.volkova@l1523.mephi.ru",
-      "room": null,
-      "hours": "Вт, Чт: 14:00-17:00",
-      "type": "administration"
+      "name": "Горячая линия Предуниверситария МИФИ",
+      "role": "Общие вопросы о поступлении в лицеи МИФИ",
+      "phone": "+7 (800) 775-15-51",
+      "phone2": "+7 (495) 785-55-25",
+      "email": "priem_liceum@mephi.ru",
+      "address": "Каширское шоссе, 31, Москва",
+      "hours": "Пн–Пт: 10:00–18:00",
+      "type": "admission"
     },
     {
       "id": "cnt003",
-      "name": "Смирнов Пётр Александрович",
-      "role": "Завуч",
-      "phone": "+7 (499) 614-50-94 доб. 103",
-      "email": "p.smirnov@l1523.mephi.ru",
-      "room": null,
-      "hours": "Ср, Пт: 15:00-18:00",
-      "type": "administration"
-    },
-    {
-      "id": "cnt004",
-      "name": "Консультационный центр",
-      "role": "Помощь по предметам",
-      "phone": null,
-      "email": null,
-      "room": "Кабинет 5",
-      "hours": "Ежедневно",
-      "address": "ул. Каширское ш., 21",
-      "type": "support"
-    },
-    {
-      "id": "cnt005",
-      "name": "Главный сайт",
-      "role": "Официальная информация",
-      "phone": "+7 (499) 614-50-94",
-      "email": null,
-      "url": "https://l1523.mephi.ru",
+      "name": "Портал абитуриента",
+      "role": "Подача заявления, документы, результаты",
+      "url": "https://org.mephi.ru",
+      "description": "Создайте аккаунт, заполните анкету, загрузите документы и отслеживайте статус заявки.",
       "type": "online"
     },
     {
+      "id": "cnt004",
+      "name": "Сайт Лицея 1523",
+      "role": "Официальная информация о лицее",
+      "url": "https://1523.mephi.ru",
+      "url_admission": "https://1523.mephi.ru/admission",
+      "type": "online"
+    },
+    {
+      "id": "cnt005",
+      "name": "Telegram-канал лицея",
+      "role": "Новости и объявления о поступлении",
+      "telegram": "https://t.me/mephi_1523",
+      "telegram_handle": "@mephi_1523",
+      "type": "social"
+    },
+    {
       "id": "cnt006",
-      "name": "Социальные сети",
-      "role": "Новости и объявления",
-      "phone": null,
-      "email": null,
-      "vk": "https://vk.com/l1523mephi",
-      "telegram": "https://t.me/l1523official",
-      "instagram": "@lyceum1523",
+      "name": "Telegram Предуниверситария",
+      "role": "Официальные новости приёмной кампании",
+      "telegram": "https://t.me/priemmephi",
+      "telegram_handle": "@priemmephi",
       "type": "social"
     },
     {
       "id": "cnt007",
-      "name": "Подготовительные курсы",
-      "role": "Запись на курсы",
-      "phone": "+7 (499) 123-45-67",
-      "email": "talent@mephi.ru",
-      "url": "https://l1523.mephi.ru/admission",
-      "type": "courses"
+      "name": "ВКонтакте",
+      "role": "Сообщество лицея",
+      "url": "https://vk.com/l1523mephi",
+      "type": "social"
     },
     {
       "id": "cnt008",
-      "name": "Библиотека",
-      "role": "Учебные материалы",
-      "phone": null,
-      "email": null,
-      "room": null,
-      "address": "ул. Каширское ш., 21, корпус 3",
-      "hours": "Пн-Пт: 9:00-18:00",
-      "url": "https://library.l1523.mephi.ru",
-      "type": "library"
+      "name": "Подготовительные курсы",
+      "role": "Курсы для подготовки к вступительным испытаниям",
+      "email": "talent@mephi.ru",
+      "url": "https://1523.mephi.ru/admission",
+      "type": "courses"
     }
   ]
 }

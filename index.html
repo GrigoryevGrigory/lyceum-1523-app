@@ -2,53 +2,69 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Лицей 1523</title>
+    <title>Поступление в Лицей 1523 МИФИ</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Трекер поступления в Лицей №1523 НИЯУ МИФИ для родителей абитуриентов">
     <link rel="stylesheet" href="./assets/styles.css">
 </head>
 <body class="app app--dark">
-    <header class="app-header">
-        <div class="app-header__title">
-            <div>
+
+    <!-- Auth screen (shown when not logged in) -->
+    <div id="auth-screen" class="auth-screen hidden">
+        <div class="auth-card">
+            <div class="auth-logo">
+                <span class="app-logo-big">Лицей 1523</span>
+                <p class="auth-subtitle">НИЯУ МИФИ — трекер поступления</p>
+            </div>
+            <div id="auth-view"></div>
+        </div>
+    </div>
+
+    <!-- Main app (shown when logged in) -->
+    <div id="app-screen" class="hidden">
+        <header class="app-header">
+            <div class="app-header__brand">
                 <span class="app-logo">Лицей 1523</span>
+                <span class="app-header__child" id="header-child-name"></span>
             </div>
-            <h1>Дашборд</h1>
-            <p>Домашние задания и оценки</p>
-        </div>
-        <div class="app-header__status">
-            <button id="btn-sync-now" class="btn btn--primary">Обновить с XCUR</button>
-            <div id="sync-status" class="sync-status">
-                <span id="sync-last">Загрузка...</span>
+            <div class="app-header__actions">
+                <span class="sync-badge" id="sync-badge"></span>
+                <button id="btn-logout" class="btn btn--ghost btn--sm">Выйти</button>
             </div>
-        </div>
-    </header>
-    
-    <nav class="app-nav app-nav--desktop">
-        <button data-tab="dashboard" class="nav-btn nav-btn--active">Дашборд</button>
-        <button data-tab="timeline" class="nav-btn">Таймлайн</button>
-        <button data-tab="checklist" class="nav-btn">Чек-лист</button>
-        <button data-tab="progress" class="nav-btn">Прогресс</button>
-        <button data-tab="homeworks" class="nav-btn">Домашка</button>
-        <button data-tab="marks" class="nav-btn">Оценки</button>
-        <button data-tab="contacts" class="nav-btn">Контакты</button>
-        <button data-tab="settings" class="nav-btn">Настройки</button>
-    </nav>
-    
-    <main class="app-main">
-        <section id="tab-dashboard" class="tab tab--active"></section>
-        <section id="tab-timeline" class="tab"></section>
-                    <div id="timeline-container"></div>
-        <section id="tab-checklist" class="tab"></section>
-        <section id="tab-progress" class="tab"></section>
-        <section id="tab-homeworks" class="tab"></section>
-        <section id="tab-marks" class="tab"></section>
-        <section id="tab-contacts" class="tab"></section>
-                    <div id="contacts-container"></div>
-        <section id="tab-settings" class="tab"></section>
-    </main>
-    
-    <div id="modal-root" class="modal-root hidden"></div>
-    
+        </header>
+
+        <nav class="app-nav">
+            <button data-tab="dashboard" class="nav-btn nav-btn--active">
+                <span class="nav-icon">🏠</span>
+                <span class="nav-label">Главная</span>
+            </button>
+            <button data-tab="timeline" class="nav-btn">
+                <span class="nav-icon">📅</span>
+                <span class="nav-label">Этапы</span>
+            </button>
+            <button data-tab="checklist" class="nav-btn">
+                <span class="nav-icon">✅</span>
+                <span class="nav-label">Документы</span>
+            </button>
+            <button data-tab="history" class="nav-btn">
+                <span class="nav-icon">🕐</span>
+                <span class="nav-label">История</span>
+            </button>
+            <button data-tab="contacts" class="nav-btn">
+                <span class="nav-icon">📞</span>
+                <span class="nav-label">Контакты</span>
+            </button>
+        </nav>
+
+        <main class="app-main">
+            <section id="tab-dashboard" class="tab tab--active"></section>
+            <section id="tab-timeline" class="tab"></section>
+            <section id="tab-checklist" class="tab"></section>
+            <section id="tab-history" class="tab"></section>
+            <section id="tab-contacts" class="tab"></section>
+        </main>
+    </div>
+
     <script src="./assets/app.js" type="module"></script>
 </body>
 </html>

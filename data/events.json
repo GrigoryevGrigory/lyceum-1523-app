@@ -1,109 +1,126 @@
 {
-  "syncedat": "2025-11-16T11:00:00Z",
+  "syncedat": "2026-03-19T00:00:00Z",
+  "source": "https://1523.mephi.ru/admission",
   "events": [
     {
       "id": "evt001",
-      "title": "Подача заявления на обучение",
-      "date": "2025-12-01",
+      "title": "Начало приёма заявлений",
+      "date": "2026-03-01",
       "type": "deadline",
-      "description": "Подать заявление в лицей",
-      "status": "upcoming"
+      "description": "Открытие регистрации на портале org.mephi.ru. Создайте аккаунт и заполните анкету абитуриента.",
+      "status": "past",
+      "link": "https://org.mephi.ru",
+      "step": 1
     },
     {
       "id": "evt002",
-      "title": "Предварительные испытания",
-      "date": "2025-12-15",
-      "type": "exam",
-      "description": "Проведение предварительных испытаний",
-      "status": "upcoming"
+      "title": "День открытых дверей",
+      "date": "2026-03-22",
+      "type": "event",
+      "description": "Посетите лицей, познакомьтесь с педагогами, задайте вопросы о профилях и программах обучения.",
+      "status": "upcoming",
+      "link": "https://1523.mephi.ru",
+      "step": 1
     },
     {
       "id": "evt003",
-      "title": "Зимние каникулы",
-      "date": "2026-01-01",
-      "type": "holiday",
-      "description": "Начало зимних каникул",
-      "status": "upcoming"
+      "title": "Последний день подачи документов",
+      "date": "2026-04-15",
+      "type": "deadline",
+      "description": "Загрузите все документы на портале org.mephi.ru. После этого срока регистрация закрывается.",
+      "status": "upcoming",
+      "link": "https://org.mephi.ru",
+      "step": 2
     },
     {
       "id": "evt004",
-      "title": "Основные испытания",
-      "date": "2026-01-15",
+      "title": "Предварительные испытания (МЦКО)",
+      "date": "2026-04-25",
       "type": "exam",
-      "description": "Основные вступительные испытания",
-      "status": "upcoming"
+      "description": "МЦКО-диагностика по профильным предметам. Результаты учитываются как индивидуальные достижения.",
+      "status": "upcoming",
+      "link": "https://1523.mephi.ru/admission",
+      "step": 3
     },
     {
       "id": "evt005",
-      "title": "День открытых дверей",
-      "date": "2026-01-22",
-      "type": "event",
-      "description": "Посещение лицея и знакомство с программой",
-      "status": "upcoming"
+      "title": "Основные вступительные испытания",
+      "date": "2026-05-10",
+      "type": "exam",
+      "description": "Письменные конкурсные испытания по профильным предметам: математика и физика (или информатика для IT-класса).",
+      "status": "upcoming",
+      "link": "https://1523.mephi.ru/admission",
+      "step": 3
     },
     {
       "id": "evt006",
-      "title": "Объявление результатов",
-      "date": "2026-01-25",
-      "type": "deadline",
-      "description": "Публикация результатов испытаний",
-      "status": "upcoming"
+      "title": "Защита проекта",
+      "date": "2026-05-20",
+      "type": "exam",
+      "description": "Для отдельных профилей — защита исследовательского или инженерного проекта перед комиссией.",
+      "status": "upcoming",
+      "link": "https://1523.mephi.ru/admission",
+      "step": 3
     },
     {
       "id": "evt007",
-      "title": "Подача оригиналов документов",
-      "date": "2026-02-05",
-      "type": "deadline",
-      "description": "Последний день подачи оригиналов",
-      "status": "upcoming"
+      "title": "Публикация рейтинговых списков",
+      "date": "2026-06-01",
+      "type": "milestone",
+      "description": "На сайте 1523.mephi.ru и в личном кабинете org.mephi.ru появятся рейтинговые списки. Проверьте позицию ребёнка.",
+      "status": "upcoming",
+      "link": "https://org.mephi.ru/pupil-rating",
+      "step": 4
     },
     {
       "id": "evt008",
-      "title": "Начало обучения на курсах",
-      "date": "2026-02-10",
-      "type": "event",
-      "description": "Первый день занятий на подготовительных курсах",
-      "status": "upcoming"
+      "title": "Список рекомендованных к зачислению",
+      "date": "2026-06-10",
+      "type": "milestone",
+      "description": "Публикация окончательного списка. Если ребёнок в нём — несите оригиналы документов.",
+      "status": "upcoming",
+      "link": "https://org.mephi.ru/pupil-rating",
+      "step": 4
     },
     {
       "id": "evt009",
-      "title": "Родительское собрание",
-      "date": "2026-02-20",
-      "type": "event",
-      "description": "Общее собрание для родителей",
-      "status": "upcoming"
+      "title": "Подача оригиналов документов",
+      "date": "2026-06-20",
+      "type": "deadline",
+      "description": "Принести оригиналы документов лично в лицей по адресу: Кленовый бульвар, 21. Пн–Пт: 9:00–17:00.",
+      "status": "upcoming",
+      "link": null,
+      "step": 4
     },
     {
       "id": "evt010",
-      "title": "Весенние каникулы",
-      "date": "2026-03-26",
-      "type": "holiday",
-      "description": "Начало весенних каникул",
-      "status": "upcoming"
+      "title": "Приказ о зачислении",
+      "date": "2026-07-01",
+      "type": "milestone",
+      "description": "Издание официального приказа о зачислении. Поздравляем!",
+      "status": "upcoming",
+      "link": null,
+      "step": 4
     },
     {
       "id": "evt011",
-      "title": "Дополнительный набор",
-      "date": "2026-04-10",
-      "type": "deadline",
-      "description": "Подача заявлений в дополнительном наборе",
-      "status": "upcoming"
+      "title": "Родительское собрание для новых учеников",
+      "date": "2026-08-22",
+      "type": "event",
+      "description": "Информационное собрание: расписание, форма, учебники, организационные вопросы нового года.",
+      "status": "upcoming",
+      "link": null,
+      "step": 4
     },
     {
       "id": "evt012",
-      "title": "Зачисление в лицей",
-      "date": "2026-04-20",
-      "type": "milestone",
-      "description": "Официальное зачисление в список учеников",
-      "status": "upcoming"
-    },
-    {
-      "id": "evt013",
-      "title": "Начало учебного года",
+      "title": "Первый день учебного года",
       "date": "2026-09-01",
       "type": "milestone",
-      "description": "Первый день учебного года в лицее",
-      "status": "upcoming"
+      "description": "Торжественная линейка и первый учебный день в Лицее №1523 МИФИ.",
+      "status": "upcoming",
+      "link": "https://1523.mephi.ru",
+      "step": 4
     }
   ]
 }
