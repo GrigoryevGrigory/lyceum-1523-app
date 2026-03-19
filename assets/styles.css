@@ -909,3 +909,113 @@ a:hover { text-decoration: underline; }
 
   .dashboard-hero__name { font-size: 1.4rem; }
 }
+
+/* =============================================
+   Rating / Probability Feature
+   ============================================= */
+.rating-page { padding: 1.25rem; max-width: 700px; margin: 0 auto; }
+.page-subtitle { color: var(--text-muted); font-size: .85rem; margin-bottom: 1.5rem; margin-top: -.3rem; }
+
+.rating-tabs {
+  display: flex; gap: .5rem; margin-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border); padding-bottom: .75rem;
+}
+.rating-tab {
+  background: none; border: 1px solid var(--border); color: var(--text-muted);
+  border-radius: var(--radius-sm); padding: .4rem .9rem; font-size: .85rem;
+  cursor: pointer; transition: all .15s;
+}
+.rating-tab--active { background: var(--blue-dark); color: #fff; border-color: var(--blue); }
+
+.rating-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.25rem; margin-bottom: 1rem;
+}
+.rating-card__title { font-size: 1rem; font-weight: 600; margin-bottom: .4rem; }
+.rating-card__hint { color: var(--text-muted); font-size: .85rem; margin-bottom: 1rem; line-height: 1.5; }
+
+.case-input, .score-num-input {
+  width: 100%; padding: .6rem .8rem; background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); color: var(--text); font-size: 1rem;
+}
+.score-num-input { text-align: center; }
+
+.rating-notice {
+  background: rgba(88,166,255,.08); border: 1px solid rgba(88,166,255,.25);
+  border-radius: var(--radius); padding: .9rem 1rem; display: flex; gap: .75rem;
+  font-size: .875rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1rem;
+}
+.rating-notice__icon { font-size: 1.1rem; flex-shrink: 0; }
+
+/* Result block */
+.rating-result { margin-top: 1rem; }
+.result-block {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1rem;
+}
+.result-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: .75rem; }
+.result-label { font-weight: 600; }
+.result-badge { font-size: .75rem; padding: .2rem .6rem; border-radius: 20px; }
+.result-badge--pending    { background: rgba(139,148,158,.2); color: var(--text-muted); }
+.result-badge--recommended { background: rgba(46,160,67,.2); color: var(--green-bright); }
+.result-badge--enrolled   { background: rgba(88,166,255,.2); color: var(--blue); }
+
+.result-stats {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: .75rem;
+  margin-bottom: 1rem;
+}
+.result-stat { text-align: center; }
+.result-stat__value { font-size: 1.5rem; font-weight: 700; color: var(--blue); }
+.result-stat__label { font-size: .7rem; color: var(--text-muted); margin-top: .15rem; }
+
+/* Probability bar */
+.prob-bar-wrap { margin-bottom: .75rem; }
+.prob-bar { height: 10px; background: var(--border); border-radius: 5px; overflow: hidden; margin-bottom: .5rem; }
+.prob-bar__fill { height: 100%; border-radius: 5px; transition: width .5s ease; }
+.zone--green  .prob-bar__fill { background: var(--green-bright); }
+.zone--yellow .prob-bar__fill { background: var(--yellow); }
+.zone--red    .prob-bar__fill { background: var(--red); }
+.prob-label { font-size: .9rem; display: flex; flex-direction: column; gap: .2rem; }
+.prob-note { font-size: .8rem; }
+.prob-note--good { color: var(--green-bright); }
+.prob-note--warn { color: var(--yellow); }
+
+.score-advice { margin-top: .75rem; }
+.advice { font-size: .875rem; padding: .6rem .9rem; border-radius: var(--radius-sm); border-left: 3px solid; }
+.advice--green  { border-color: var(--green-bright); background: rgba(86,211,100,.07); }
+.advice--yellow { border-color: var(--yellow); background: rgba(210,153,34,.07); }
+.advice--red    { border-color: var(--red); background: rgba(248,81,73,.07); }
+
+/* History table */
+.history-table { width: 100%; border-collapse: collapse; font-size: .875rem; margin-top: 1rem; }
+.history-table th, .history-table td { padding: .5rem .75rem; border-bottom: 1px solid var(--border); text-align: left; }
+.history-table th { color: var(--text-muted); font-weight: 500; font-size: .8rem; }
+.score-cell { font-weight: 600; color: var(--blue); }
+.score-max { color: var(--text-muted); font-size: .8rem; }
+.table-note { font-size: .75rem; color: var(--text-muted); margin-top: .5rem; }
+
+/* Class pills */
+.class-pills { display: flex; gap: .5rem; margin: .5rem 0 1rem; }
+.class-pill {
+  background: var(--bg); border: 1px solid var(--border); color: var(--text-muted);
+  border-radius: 20px; padding: .3rem .85rem; font-size: .85rem; cursor: pointer;
+}
+.class-pill--active { background: var(--blue-dark); border-color: var(--blue); color: #fff; }
+
+/* Mini trend bars */
+.mini-trend { margin-top: 1rem; }
+.mini-trend__title { font-size: .8rem; color: var(--text-muted); margin-bottom: .5rem; }
+.mini-trend__bars { display: flex; align-items: flex-end; gap: .75rem; height: 100px; }
+.trend-bar-wrap { display: flex; flex-direction: column; align-items: center; gap: .25rem; }
+.trend-bar {
+  width: 36px; background: var(--blue-dark); border-radius: 3px 3px 0 0;
+  display: flex; align-items: flex-start; justify-content: center; padding-top: .2rem; min-height: 10px;
+}
+.trend-bar--yours { background: var(--green); }
+.trend-bar__val { font-size: .7rem; color: #fff; font-weight: 600; }
+.trend-bar__year { font-size: .7rem; color: var(--text-muted); }
+
+.rating-not-found { color: var(--text-muted); font-size: .9rem; line-height: 1.6; }
+.rating-error { color: var(--red); font-size: .875rem; }
+.text-muted { color: var(--text-muted); }
+.loading-spinner { color: var(--text-muted); padding: 2rem; text-align: center; }

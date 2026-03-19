@@ -4,6 +4,7 @@ import { renderDashboard } from './ui-dashboard.js';
 import { renderTimeline } from './ui-timeline.js';
 import { renderChecklist } from './ui-checklist.js';
 import { renderHistory } from './ui-history.js';
+import { renderRating } from './ui-rating.js';
 import { renderContacts } from './ui-contacts.js';
 
 export const state = {
@@ -83,6 +84,7 @@ export function renderCurrentTab(tabId) {
     case 'timeline': renderTimeline(state.events); break;
     case 'checklist': renderChecklist(state); break;
     case 'history': renderHistory(state.activityLog); break;
+    case 'rating': renderRating(state); break;
     case 'contacts': renderContacts(state.contacts); break;
   }
 }

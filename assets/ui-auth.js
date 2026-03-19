@@ -92,17 +92,19 @@ function showRegisterForm(container, onSuccess) {
     errEl.classList.add('hidden');
 
     try {
-      const { user } = await register(email, password);
-      if (user) {
+      const { user, session } = await register(email, password);
+      if (user && session) {
+        // Email confirmation disabled — has active session, go straight to onboarding
         showOnboarding(container, user, onSuccess);
-      } else {
-        // Email confirmation required
+      } else if (user) {
+        // Email confirmation required — must confirm before session is created
         container.innerHTML = `
           <div class="auth-confirm">
             <div class="auth-confirm__icon">📧</div>
             <h2>Проверьте почту</h2>
-            <p>Мы отправили письмо на <strong>${email}</strong>.<br>Перейдите по ссылке в письме для подтверждения аккаунта, затем войдите.</p>
-            <button class="btn btn--primary btn--full" id="back-to-login">Перейти ко входу</button>
+            <p>Мы отправили письмо на <strong>${email}</strong>.<br>
+            Перейдите по ссылке для подтверждения, затем вернитесь и войдите.</p>
+            <button class="btn btn--primary btn--full" id="back-to-login">Войти</button>
           </div>
         `;
         container.querySelector('#back-to-login').addEventListener('click', () => {
