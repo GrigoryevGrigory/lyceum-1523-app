@@ -953,12 +953,14 @@ a:hover { text-decoration: underline; }
   background: var(--bg); border: 1px solid var(--border);
   border-radius: var(--radius); padding: 1rem;
 }
-.result-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: .75rem; }
+.result-header { display: flex; flex-wrap: wrap; gap: .4rem; align-items: center; margin-bottom: .75rem; }
 .result-label { font-weight: 600; }
 .result-badge { font-size: .75rem; padding: .2rem .6rem; border-radius: 20px; }
-.result-badge--pending    { background: rgba(139,148,158,.2); color: var(--text-muted); }
-.result-badge--recommended { background: rgba(46,160,67,.2); color: var(--green-bright); }
-.result-badge--enrolled   { background: rgba(88,166,255,.2); color: var(--blue); }
+.result-badge--pending         { background: rgba(139,148,158,.2); color: var(--text-muted); }
+.result-badge--recommended     { background: rgba(46,160,67,.2); color: var(--green-bright); }
+.result-badge--enrolled        { background: rgba(88,166,255,.2); color: var(--blue); }
+.result-badge--not_recommended { background: rgba(139,148,158,.2); color: var(--text-muted); }
+.enrollment-type-badge { font-size: .75rem; padding: .2rem .6rem; border-radius: 20px; background: rgba(88,166,255,.15); color: var(--blue); }
 
 .result-stats {
   display: grid; grid-template-columns: repeat(4,1fr); gap: .75rem;

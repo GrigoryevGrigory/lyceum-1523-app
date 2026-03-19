@@ -118,9 +118,14 @@ export async function renderRating(appState) {
       </div>
 
       <div id="rating-mode-case" class="rating-mode">
+        <div class="rating-notice" style="margin-bottom:.75rem">
+          <span class="rating-notice__icon">📋</span>
+          <span>Данные рейтинга на <strong>18.03.2026</strong> (первый этап). Доступно: 8 класс ФИЗ-МАТ (141 участник). Другие классы и профили — после публикации на <a href="https://org.mephi.ru/pupil-rating" target="_blank">org.mephi.ru</a>.</span>
+        </div>
+
         <div class="rating-card">
           <h3 class="rating-card__title">Найти позицию в рейтинге</h3>
-          <p class="rating-card__hint">Введите номер личного дела из портала <a href="https://org.mephi.ru" target="_blank">org.mephi.ru</a>. Рейтинговые списки публикуются после вступительных испытаний (с июня).</p>
+          <p class="rating-card__hint">Введите номер личного дела из портала <a href="https://org.mephi.ru" target="_blank">org.mephi.ru</a>.</p>
 
           <div class="form-row">
             <div class="form-group">
@@ -138,15 +143,10 @@ export async function renderRating(appState) {
           </div>
           <div class="form-group">
             <label>Номер личного дела</label>
-            <input type="text" id="r-case-number" placeholder="Например: 2026-001234" class="case-input">
+            <input type="text" id="r-case-number" placeholder="Например: 2033" class="case-input">
           </div>
           <button class="btn btn--primary" id="r-search-btn">Найти в рейтинге</button>
           <div id="r-case-result" class="rating-result hidden"></div>
-        </div>
-
-        <div class="rating-notice">
-          <span class="rating-notice__icon">ℹ️</span>
-          <span>Рейтинговые списки <strong>2026 года</strong> будут опубликованы после вступительных испытаний (ориентировочно с 1 июня). До этого вы можете оценить шансы по баллу.</span>
         </div>
       </div>
 
@@ -365,12 +365,17 @@ export async function renderRating(appState) {
 function renderCaseResult(entry, seats, total, prob, profileLabel) {
   const zoneClass = prob ? `zone--${prob.zone}` : '';
   const inSeats = entry.position <= seats;
+  const isBvi = entry.enrollment_type === 'БВИ';
+  const scoreDisplay = isBvi ? 'БВИ' : (entry.score != null ? entry.score : '—');
+  const scoreLabel = isBvi ? 'Тип зачисления' : 'Суммарный балл';
+  const isRecommended = entry.status === 'recommended';
 
   return `
     <div class="result-block">
       <div class="result-header">
         <span class="result-label">Дело №${esc(entry.case_number)}</span>
         <span class="result-badge result-badge--${entry.status}">${statusLabel(entry.status)}</span>
+        ${entry.enrollment_type ? `<span class="enrollment-type-badge">${esc(entry.enrollment_type)}</span>` : ''}
       </div>
 
       <div class="result-stats">
@@ -379,8 +384,8 @@ function renderCaseResult(entry, seats, total, prob, profileLabel) {
           <div class="result-stat__label">Место в рейтинге</div>
         </div>
         <div class="result-stat">
-          <div class="result-stat__value">${entry.score}</div>
-          <div class="result-stat__label">Суммарный балл</div>
+          <div class="result-stat__value">${scoreDisplay}</div>
+          <div class="result-stat__label">${scoreLabel}</div>
         </div>
         <div class="result-stat">
           <div class="result-stat__value">${seats}</div>
@@ -392,7 +397,15 @@ function renderCaseResult(entry, seats, total, prob, profileLabel) {
         </div>
       </div>
 
-      ${prob ? `
+      ${isRecommended ? `
+        <div class="prob-bar-wrap zone--green">
+          <div class="prob-bar"><div class="prob-bar__fill" style="width:95%"></div></div>
+          <div class="prob-label">
+            <strong>Рекомендован к зачислению</strong> (список от 18.03.2026)
+            <span class="prob-note prob-note--good">✅ ${isBvi ? 'Зачислен без вступительных испытаний' : `В зоне зачисления (место ${entry.position} из ${seats})`}</span>
+          </div>
+        </div>
+      ` : prob ? `
         <div class="prob-bar-wrap ${zoneClass}">
           <div class="prob-bar">
             <div class="prob-bar__fill" style="width:${prob.pct}%"></div>
@@ -400,10 +413,11 @@ function renderCaseResult(entry, seats, total, prob, profileLabel) {
           <div class="prob-label">
             <strong>${prob.pct}%</strong> вероятность поступления
             ${inSeats
-              ? `<span class="prob-note prob-note--good">✅ В зоне зачисления (запас ${prob.buffer} мест)</span>`
-              : `<span class="prob-note prob-note--warn">⚠️ За чертой зачисления на ${prob.overflow} позиций</span>`}
+              ? `<span class="prob-note prob-note--good">✅ В пределах плана набора (место ${entry.position} из ${seats})</span>`
+              : `<span class="prob-note prob-note--warn">⚠️ За чертой плана набора на ${prob.overflow} позиций</span>`}
           </div>
         </div>
+        <p class="text-muted" style="margin:.5rem 0;font-size:.8rem">Данные на 18.03.2026. Список может обновляться по мере подтверждения зачисления.</p>
       ` : ''}
     </div>
   `;
@@ -494,5 +508,5 @@ function scoreAdvice(gap, stat) {
 }
 
 function statusLabel(s) {
-  return { recommended: 'Рекомендован', enrolled: 'Зачислен', pending: 'В рейтинге' }[s] || s;
+  return { recommended: 'Рекомендован', enrolled: 'Зачислен', pending: 'В рейтинге', not_recommended: 'В рейтинге' }[s] || s;
 }
